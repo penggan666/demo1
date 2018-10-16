@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class orignController {
     @Autowired
     private orignService orignService;
-    @GetMapping(value = "/data")
+    @GetMapping(value = "/data1")
     public void insert()
     {
         orignService.save();
