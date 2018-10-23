@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,25 +28,23 @@ public class orignService {
     public void save()
     {
         int num=0;
-        List<orign> L=orignUtil.alldata();
-        for(int i=0;i<L.size();i++){
-            em.persist(L.get(i));
-            if(i%100000==0)
-            {
+            List<orign> L = orignUtil.alldata();
+            for (int i = 0; i < L.size(); i++) {
+                em.persist(L.get(i));
+                if (i % 20000 == 0) {
+                    em.flush();
+                    em.clear();
+                }
+                num++;
+                if (L.size() - num < 20000)
+                    break;
+                System.out.println(num);
+            }
+            for (int i = num; i < L.size(); i++) {
+                em.persist(L.get(i));
                 em.flush();
                 em.clear();
             }
-            num++;
-            if(L.size()-num<1000)
-                break;
-            System.out.println(num);
-        }
-        for(int i=num+1;i<L.size();i++)
-        {
-            em.persist(L.get(i));
-            em.flush();
-            em.clear();
-        }
         System.out.println("finish");
     }
     public void sumUrl()

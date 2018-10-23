@@ -3,15 +3,43 @@ package com.example.demo1.Bean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Date;
+import java.sql.Time;
 
 @Entity
 public class orign {
 
     @Id
     private int num;
-    private String txtname;
-    @Column(name = "time", columnDefinition = "TEXT")
-    private String time;
+    private String userid;
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Time getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(Time starttime) {
+        this.starttime = starttime;
+    }
+
+    private Date date;
+    private Time starttime;
+    private int time;
     @Column(name = "progress", columnDefinition = "TEXT")
     private String progress;
     @Column(name="url",columnDefinition = "TEXT")
@@ -34,19 +62,12 @@ public class orign {
     public void setUrl(String url) {
         this.url = url;
     }
-    public String getTxtname() {
-        return txtname;
-    }
 
-    public void setTxtname(String txtname) {
-        this.txtname = txtname;
-    }
-
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
