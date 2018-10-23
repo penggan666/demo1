@@ -11,6 +11,7 @@ public class orignController {
     @Autowired
     private orignService orignService;
     @GetMapping(value = "/data")
+
     public void insert()
     {
         orignService.save();
