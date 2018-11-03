@@ -1,17 +1,36 @@
 package com.example.demo1.Bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
 @Entity
 public class orign {
 
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Id
     private int num;
     private String userid;
+    private Date date;
+    private Time starttime;
+    private int time;
+
+    public int getLenTime() {
+        return lenTime;
+    }
+
+    public void setLenTime(int lenTime) {
+        this.lenTime = lenTime;
+    }
+
+    private int lenTime;
+    @Column(name = "progress", columnDefinition = "TEXT")
+    private String progress;
+    @Column(name="url",columnDefinition = "TEXT")
+    private String url;
+    public void orign(){
+
+    }
 
     public String getUserid() {
         return userid;
@@ -37,16 +56,6 @@ public class orign {
         this.starttime = starttime;
     }
 
-    private Date date;
-    private Time starttime;
-    private int time;
-    @Column(name = "progress", columnDefinition = "TEXT")
-    private String progress;
-    @Column(name="url",columnDefinition = "TEXT")
-    private String url;
-    public void orign(){
-
-    }
     public int getNum() {
         return num;
     }

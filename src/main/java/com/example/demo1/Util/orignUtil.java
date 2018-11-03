@@ -3,6 +3,7 @@ package com.example.demo1.Util;
 import com.example.demo1.Bean.orign;
 import com.example.demo1.Repository.orignRepository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.xml.soap.Text;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,8 @@ public class orignUtil {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             List<String> list=new ArrayList<>();
-            br.readLine();
+            String a=br.readLine();
+            list.add(a);
             br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
@@ -129,8 +131,8 @@ public static java.sql.Date strToDate(String strDate) {
                     String s1 = getMatchTime(ss);
                     String s2 = getMatchTime1(ss);
                     String s3 = getMatchTime2(ss);
-                    if (s1 == null)
-                        continue;
+                    //if (s1 == null)
+                      //  continue;
                     orign o = new orign();
                     o.setNum(num++);
                     o.setDate(b1);
@@ -145,6 +147,62 @@ public static java.sql.Date strToDate(String strDate) {
         }
         return O;
     }
+    public static List<orign> alldata1()//读取所有数据
+    {
+        int num = 1;
+        String basePath = "H:\\课程相关\\导师学习记录\\Data\\互联网用户行为日志数据集.rardataset_616718\\data\\behavior";
+        File file1 = new File(basePath);
+        List<orign> O = new ArrayList<>();
+        File[] timeFiles = file1.listFiles();
+        for (File f : timeFiles) {
+            File[] dataFiles = f.listFiles();
+            for (File f_data : dataFiles) {
+                List<String> list = readTxttoString(f_data);
+                String a = f_data.getName().substring(0, 32);
+                String b = f_data.getName().substring(33, 43);
+                String c = f_data.getName().substring(44, 52);
+                String d=list.get(0).substring(7);
+                java.sql.Date b1 = strToDate(b);
+                java.sql.Time c1 = strToTime(c);
+                System.out.println(list.get(0)+" "+list.get(0).length());
+                System.out.println(f_data.getName());
+                System.out.println(d);
+                for (int i=1;i<list.size();i++) {
+                    int s111;
+                    String s11;
+                    String s1 = getMatchTime(list.get(i));
+                    String s2 = getMatchTime1(list.get(i));
+                    String s3 = getMatchTime2(list.get(i));
+                    if (s1 == null)
+                        continue;
+                    if(i!=list.size()-1) {
+                        s11 = getMatchTime(list.get(i + 1));
+                        if(s11==null)
+                            s11=getMatchTime(list.get(i + 2));
+                        int S1=Integer.valueOf(s1);
+                        int S11=Integer.valueOf(s11);
+                        s111=S11-S1;
+                    }
+                    else{
+                        int S1=Integer.valueOf(s1);
+                        s111=S1-Integer.valueOf(d);
+                    }
+                    orign o = new orign();
+                    o.setNum(num++);
+                    o.setDate(b1);
+                    o.setStarttime(c1);
+                    o.setUserid(a);
+                    o.setTime(Integer.parseInt(s1));
+                    o.setLenTime(s111);
+                    o.setProgress(s2);
+                    o.setUrl(s3);
+                    O.add(o);
+                }
+            }
+        }
+        return O;
+    }
+
 
 
 }
