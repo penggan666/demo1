@@ -1,7 +1,7 @@
 package com.example.demo1.Repository;
 
+import com.example.demo1.Bean.orign;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo1.Bean.*;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
