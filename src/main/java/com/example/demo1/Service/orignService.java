@@ -26,7 +26,7 @@ public class orignService {
     public void save()
     {
         int num=0;
-            List<orign> L = orignUtil.alldata();
+            List<orign> L = orignUtil.alldata1();
             for (int i = 0; i < L.size(); i++) {
                 em.persist(L.get(i));
                 if (i % 20000 == 0) {
